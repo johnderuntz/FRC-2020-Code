@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -23,8 +24,7 @@ public class FeederToShooter extends SubsystemBase {
   public final TalonFX converyor_up = new TalonFX(31);
 
   public FeederToShooter() {
-
-
+    converyor_up.setNeutralMode(NeutralMode.Coast);
   }
 
   //Name: Brennan

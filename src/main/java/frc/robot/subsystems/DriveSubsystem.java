@@ -34,10 +34,10 @@ import edu.wpi.first.wpilibj.util.Units;
 public class DriveSubsystem extends SubsystemBase {
 
       //Motors
-      TalonFX leftDrivePrimary = new TalonFX(20);//Change This
-      TalonFX leftDriveBack = new TalonFX(11);
-      TalonFX rightDrivePrimary = new TalonFX(12);
-      TalonFX rightDriveBack = new TalonFX(13);
+      TalonFX leftDrivePrimary = new TalonFX(12);//Change This
+      TalonFX leftDriveBack = new TalonFX(13);
+      TalonFX rightDrivePrimary = new TalonFX(10);
+      TalonFX rightDriveBack = new TalonFX(11);
       //Gyro
       AHRS navx = new AHRS(SPI.Port.kMXP);
       //create the penumatics 
