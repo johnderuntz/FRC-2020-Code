@@ -9,20 +9,15 @@ package frc.robot.commands.shootercommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import frc.robot.Constants;
-import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.Shooter;
+//About: instanciate subsystems 
+import frc.robot.subsystems.FeederToShooter;
 
+public class ReverseIntake extends CommandBase {
+  private final FeederToShooter m_feed;
 
-public class FlyWheel extends CommandBase {
-  private final Shooter m_shooter;
-  private final Limelight m_limelight;
-
-  public FlyWheel(Limelight limelight, Shooter shoot) {
-    m_shooter = shoot;
-    m_limelight = limelight;
-    addRequirements(m_shooter);
-    addRequirements(m_limelight);
+  public ReverseIntake(FeederToShooter feed) {
+    m_feed = feed;
+    addRequirements(feed);
   }
 
   @Override
@@ -31,19 +26,17 @@ public class FlyWheel extends CommandBase {
 
   @Override
   public void execute() {
-    //Name: Brennan
-    //About: convert the velocity into encoder ticks and account for the gear ratio
-    double convertedVelocity = (m_limelight.getShooterVelocity() * Constants.ShooterConstants.flyGearRatio);
 
-    //About: activates the flywheels and sets the shooter velocity 
-    m_shooter.setShootSpeed(convertedVelocity);
+    //Name: Brennan 
+    //About: turn the convey on
+    m_feed.reverseIntake();
   }
-
+  
   @Override
   public void end(boolean interrupted) {
-
-    //About: turn the flywheels off
-    m_shooter.setPower(0.0);
+    //Name: Brennan 
+    //About: turn the convey off
+    m_feed.Stop();
   }
 
   @Override

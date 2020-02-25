@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -26,6 +27,9 @@ public class Shooter extends SubsystemBase {
   WPI_TalonFX Shooter_2 = new WPI_TalonFX(16);
 
   WPI_TalonSRX hoodAdjuster = new WPI_TalonSRX(20);
+
+  //About: instanciate the limit switch 
+  private static DigitalInput hoodLimitSwitch = new DigitalInput(1);
 
   //About: instanciate the doubles 
   private double velo = 0.0;
@@ -75,12 +79,12 @@ public class Shooter extends SubsystemBase {
     Shooter_2.configAllowableClosedloopError(0, 10);
 
     //About: how to calculate kF https://phoenix-documentation.readthedocs.io/en/latest/ch16_ClosedLoop.html#calculating-velocity-feed-forward-gain-kf
-    Shooter_1.config_kF(0, m_limelight.getShooterVelocity()*Constants.ShooterConstants.ticksPerRPM);
+    Shooter_1.config_kF(0, m_limelight.getShooterVelocity()*Constants.ShooterConstants.kRPMtoTicks);
     Shooter_1.config_kP(0, 0.002);
     Shooter_1.config_kI(0, 0);
     Shooter_1.config_kD(0, 0);
 
-    Shooter_2.config_kF(0, m_limelight.getShooterVelocity()*Constants.ShooterConstants.ticksPerRPM);
+    Shooter_2.config_kF(0, m_limelight.getShooterVelocity()*Constants.ShooterConstants.kRPMtoTicks);
     Shooter_2.config_kP(0, 0.002);
     Shooter_2.config_kI(0, 0);
     Shooter_2.config_kD(0, 0);
@@ -134,6 +138,33 @@ public class Shooter extends SubsystemBase {
 
   }
 
+  //Name: Brennan 
+  //About: configure the hood motor's self made position mode 
+  public void ConfigPositonangle(){
+
+    //configure the voltage 
+    hoodAdjuster.configVoltageCompSaturation(12.0,0);
+    hoodAdjuster.enableVoltageCompensation(true);
+
+    //set the limits of the shooter 
+    hoodAdjuster.configReverseSoftLimitThreshold(1024);
+    hoodAdjuster.configNominalOutputForward(0);
+
+    //set the speed limits 
+    hoodAdjuster.configPeakOutputForward(1);
+    hoodAdjuster.configPeakOutputReverse(-1);
+
+    hoodAdjuster.setInverted(true);
+
+    //tell it how long it should take to get there 
+    hoodAdjuster.configClosedloopRamp(0.10);
+    
+    //set the motor into positon mode and set the encoder
+    hoodAdjuster.set(ControlMode.PercentOutput, 0.0);
+    hoodAdjuster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder,0,0);
+
+  }
+
   //---------------------------Place Getters Here-------------------------------
 
   //Name: Brennan 
@@ -148,14 +179,15 @@ public class Shooter extends SubsystemBase {
     return Shooter_2.getSelectedSensorVelocity();
   }
 
-  public int getTotalShooterRPM(){
-    return ((Shooter_1.getSelectedSensorVelocity() + Shooter_2.getSelectedSensorVelocity())/2) * 12;
+  //Name: Brennan 
+  //About: get the velocities for the shooter 
+  public double getTotalShooterRPM(){
+    return ((Shooter_1.getSelectedSensorVelocity() + Shooter_2.getSelectedSensorVelocity())/2) * Constants.ShooterConstants.kTickstoRPM;
   }
 
   //Name: Brennan 
   //About: get the angle of the hood motor in degrees using the CTRE mag encoder 
   public double getHoodAngle(){
-    //TODO: double check the math put into this and hard code it into the constants 
     return hoodAdjuster.getSelectedSensorPosition() * 0.087890625;
   }
 
@@ -165,9 +197,19 @@ public class Shooter extends SubsystemBase {
     double maxRPM = 19700;
     double percentOutput = RPM/maxRPM;
 
-    double kF = (percentOutput*1023)/RPM;
+    double kF = (percentOutput*m_limelight.getShooterVelocity())/RPM;
     
     return kF;
+  }
+
+  //Name: Brennan
+  //About: Configures the kF for the hood motor 
+  public double HoodKF(){
+    double Velo = (1024/36);
+    double percentOut = 100;
+    double Kf = (percentOut*1023)/Velo;
+
+    return Kf; 
   }
 
   //Name: Brennan 
@@ -218,7 +260,6 @@ public class Shooter extends SubsystemBase {
   //Name: Brennan 
   //About: Useing velocity mode set the angular velocity of the shooter 
   public void setShootSpeed(double velocity){
-    //TODO: Make Sure this works before you commit it 
     velo = velocity;
     Shooter_1.set(TalonFXControlMode.Velocity, velo);
     Shooter_2.set(TalonFXControlMode.Velocity, velo);
@@ -233,10 +274,57 @@ public class Shooter extends SubsystemBase {
     Shooter_2.set(ControlMode.PercentOutput, power);
   }
 
+  //Name: Brennan 
+  //About: Reset the hood angle based on the limit switch 
+  public void resetHoodwithLimit(){
+    boolean limit = hoodLimitSwitch.get(); 
+
+    while(!limit){
+
+      hoodAdjuster.set(ControlMode.PercentOutput, 1.0);
+      if(limit){
+
+        hoodAdjuster.set(ControlMode.PercentOutput, 0);
+        hoodAdjuster.setSelectedSensorPosition(0);
+      }
+    }
+
+    if(limit){
+
+      hoodAdjuster.set(ControlMode.PercentOutput, 0);
+      hoodAdjuster.setSelectedSensorPosition(0);
+    }
+  }
+
+  //Name: Brennan 
+  //About: reset the angle of the encoder 
+  public void resetHoodEncoder(){
+    hoodAdjuster.setSelectedSensorPosition(0);
+  }
+  
+  //Name: Brennan 
+  //About: Using percent output to set the power of the hoodmotor 
+  public void setHoodPower(double power) {
+    hoodAdjuster.set(ControlMode.PercentOutput, 0);
+  }
+
   //Name: Brennan, Dante
   //About: set the hood angle with the position control mode
   public void setHoodWithAngle(double feedforward){
     hoodAdjuster.set(ControlMode.Position, feedforward * 0.08789062);
+  }
+
+  //Name: Brennan 
+  //About: Creates its own kinda position mode and makes it hit a certian position 
+  public void changeHoodPosition(double position){
+    double angle = getHoodAngle();
+    double target = position;
+    double error = angle - target;
+    double kP = 0.1;
+
+    double speed = kP * error;
+
+    hoodAdjuster.set(ControlMode.PercentOutput, speed);
   }
   
   @Override

@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.DriveCommands;
 
 import java.util.function.DoubleSupplier;
 
@@ -36,7 +36,7 @@ public class PlayerDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.PortedArcadeDrive(m_speed.getAsDouble(), m_rotation.getAsDouble());
+    m_drivetrain.ArcadeDrive(m_speed.getAsDouble(), m_rotation.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.

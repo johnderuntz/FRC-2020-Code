@@ -19,8 +19,6 @@ public class FeederToShooter extends SubsystemBase {
   //About: instanciate the Talons
   public final TalonSRX conveyor_one = new TalonSRX(35);
   public final TalonSRX conveyor_two = new TalonSRX(32);
-  public final TalonSRX conveyor_three = new TalonSRX(33);
-  public final TalonSRX conveyor_four = new TalonSRX(34);
   public final TalonFX converyor_up = new TalonFX(31);
 
   public FeederToShooter() {
@@ -30,22 +28,18 @@ public class FeederToShooter extends SubsystemBase {
   //Name: Brennan
   //About: make the "power cell" go forward 
   public void intaketoShooter(){
-    conveyor_one.set(ControlMode.PercentOutput, .5);
-    conveyor_two.set(ControlMode.PercentOutput, .5);
-    conveyor_three.set(ControlMode.PercentOutput, .5);
-    conveyor_four.set(ControlMode.PercentOutput, -.7);
-    converyor_up.set(ControlMode.PercentOutput, .3);
+    conveyor_one.set(ControlMode.PercentOutput, .4);
+    conveyor_two.set(ControlMode.PercentOutput, -.5);
+    converyor_up.set(ControlMode.PercentOutput, .6);
     return;
   }
 
   //Name: Brennan 
   //About: make the motors go backward
   public void reverseIntake(){
-    conveyor_one.set(ControlMode.PercentOutput, -0.5);
-    conveyor_two.set(ControlMode.PercentOutput, -0.5);
-    conveyor_three.set(ControlMode.PercentOutput, -0.5);
-    conveyor_four.set(ControlMode.PercentOutput, 0.7);
-    converyor_up.set(ControlMode.PercentOutput, -0.3);
+    conveyor_one.set(ControlMode.PercentOutput, -0.4);
+    conveyor_two.set(ControlMode.PercentOutput, 0.2);
+    converyor_up.set(ControlMode.PercentOutput, -0.4);
   }
 
   //Name: Brennan 
@@ -53,8 +47,6 @@ public class FeederToShooter extends SubsystemBase {
   public void Stop(){
     conveyor_one.set(ControlMode.PercentOutput, 0.0);
     conveyor_two.set(ControlMode.PercentOutput, 0.0);
-    conveyor_three.set(ControlMode.PercentOutput, 0.0);
-    conveyor_four.set(ControlMode.PercentOutput, 0.0);
     converyor_up.set(ControlMode.PercentOutput, 0.0);
   }
 

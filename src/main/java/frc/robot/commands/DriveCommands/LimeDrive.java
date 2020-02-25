@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.DriveCommands;
 
 import java.util.function.DoubleSupplier;
 
@@ -56,7 +56,7 @@ public class LimeDrive extends CommandBase {
       else if (headingError < 1){ 
         steeringAdjust = kP *headingError + minPower;
       }
-      drivesubsystem.PortedArcadeDrive(m_speed.getAsDouble(), steeringAdjust);
+      drivesubsystem.ArcadeDrive(m_speed.getAsDouble(), steeringAdjust);
     }
   }
 

@@ -30,8 +30,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-import frc.robot.commands.PlayerDrive;
-import frc.robot.commands.drivetrainShifter;
+import frc.robot.commands.DriveCommands.PlayerDrive;
+import frc.robot.commands.DriveCommands.LimeDrive;
+import frc.robot.commands.DriveCommands.drivetrainShifter;
 import frc.robot.commands.shootercommand.FeedToWheel;
 
 
@@ -47,8 +48,8 @@ public class RobotContainer {
 
   //Define Anything Else Here
 
-  public final XboxController driver = new XboxController(0);
-
+  public static final XboxController driver = new XboxController(0);
+  public static final XboxController operator = new XboxController(1);
 
 
   /**
@@ -63,7 +64,11 @@ public class RobotContainer {
 
 
     //Assign Default Commands
-    m_driveSubsystem.setDefaultCommand(new PlayerDrive(() -> driver.getY(Hand.kLeft),() -> driver.getX(Hand.kRight), m_driveSubsystem));
+    m_driveSubsystem.setDefaultCommand(new PlayerDrive
+    (
+      () -> driver.getY(Hand.kLeft),
+      () -> driver.getX(Hand.kRight), m_driveSubsystem)
+    );
   }
 
   /**

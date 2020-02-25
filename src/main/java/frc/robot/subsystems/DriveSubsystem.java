@@ -13,7 +13,7 @@ import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
@@ -34,14 +35,20 @@ import edu.wpi.first.wpilibj.util.Units;
 public class DriveSubsystem extends SubsystemBase {
 
       //Motors
-      TalonFX leftDrivePrimary = new TalonFX(12);//Change This
-      TalonFX leftDriveBack = new TalonFX(13);
-      TalonFX rightDrivePrimary = new TalonFX(10);
-      TalonFX rightDriveBack = new TalonFX(11);
+      WPI_TalonFX leftDrivePrimary = new WPI_TalonFX(12);//Change This
+      WPI_TalonFX leftDriveBack = new WPI_TalonFX(13);
+      WPI_TalonFX rightDrivePrimary = new WPI_TalonFX(10);
+      WPI_TalonFX rightDriveBack = new WPI_TalonFX(11);
+      
       //Gyro
       AHRS navx = new AHRS(SPI.Port.kMXP);
+      
+      //drivetrain
+      DifferentialDrive drive_t = new DifferentialDrive(rightDrivePrimary, leftDrivePrimary);
+      
       //create the penumatics 
       DoubleSolenoid driveShift = new DoubleSolenoid(0,1);
+      
       //things for motion magic
       StringBuilder _sb = new StringBuilder();
       int _smoothing = 0;
@@ -77,7 +84,7 @@ public class DriveSubsystem extends SubsystemBase {
     rightDrivePrimary.set(ControlMode.PercentOutput, rightVoltage/12);
   }
 
-  public void configElevatorMagic(){
+  public void setMotionMagicMode(){
     //set the motors to factory default 
     leftDrivePrimary.configFactoryDefault();
     leftDriveBack.configFactoryDefault();
@@ -125,24 +132,24 @@ public class DriveSubsystem extends SubsystemBase {
 
     //config accel and vcrusie velocity
     leftDrivePrimary.configMotionAcceleration(5000);
-    leftDrivePrimary.configMotionCruiseVelocity(70000);
+    leftDrivePrimary.configMotionCruiseVelocity(60000);
     rightDrivePrimary.configMotionAcceleration(5000);
-    rightDrivePrimary.configMotionCruiseVelocity(70000);
+    rightDrivePrimary.configMotionCruiseVelocity(60000);
 
     //zero out the things 
     leftDrivePrimary.setSelectedSensorPosition(0, 0, 0);
     rightDrivePrimary.setSelectedSensorPosition(0, 0, 0);
 
     //set the PID values for the master motor controllers 
-    rightDrivePrimary.config_kP(0, 0.2);
+    rightDrivePrimary.config_kP(0, 0.78);
     rightDrivePrimary.config_kI(0, 0);
     rightDrivePrimary.config_kD(0, 0);
-    rightDrivePrimary.config_kF(0, 0.2);
+    rightDrivePrimary.config_kF(0, 0.6);
 
-    leftDrivePrimary.config_kP(0, 0.2);
+    leftDrivePrimary.config_kP(0, 0.78);
     rightDrivePrimary.config_kI(0, 0);
     leftDrivePrimary.config_kD(0, 0);
-    leftDrivePrimary.config_kF(0, 0.2);
+    leftDrivePrimary.config_kF(0, 0.6);
 
     rightDrivePrimary.configVoltageCompSaturation(12.0);
     leftDrivePrimary.configVoltageCompSaturation(12.0);    
@@ -150,6 +157,46 @@ public class DriveSubsystem extends SubsystemBase {
     m_configCorrectly = false;
   }
 
+  public void configStandardDrive(){
+    leftDrivePrimary.configFactoryDefault();
+    leftDriveBack.configFactoryDefault();
+    rightDrivePrimary.configFactoryDefault();
+    rightDriveBack.configFactoryDefault();
+    //Configures the MagEncoders into Relative mode
+    leftDrivePrimary.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    rightDrivePrimary.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    leftDrivePrimary.setSelectedSensorPosition(0);
+    rightDrivePrimary.setSelectedSensorPosition(0);
+
+    //Live life on the edge and turn off safety mode
+    drive_t.setSafetyEnabled(false);
+
+    //Set the sensor phase
+    leftDrivePrimary.setSensorPhase(true);
+    rightDrivePrimary.setSensorPhase(true);
+
+    //Set inverted
+    rightDrivePrimary.setInverted(true);
+    rightDriveBack.setInverted(true);
+    leftDrivePrimary.setInverted(false);
+    leftDriveBack.setInverted(false);
+
+    //This makes the slave controllers follow the output values of the master controllers
+    leftDriveBack.follow(leftDrivePrimary);
+    rightDriveBack.follow(rightDrivePrimary);
+
+    //Enables voltage compensation, it will take the battery voltage into account when trying to drive the robot.
+    leftDrivePrimary.enableVoltageCompensation(false);
+    rightDrivePrimary.enableVoltageCompensation(false);
+    leftDrivePrimary.configVoltageCompSaturation(Constants.voltageSaturation);
+    rightDrivePrimary.configVoltageCompSaturation(Constants.voltageSaturation);
+
+
+    leftDrivePrimary.setNeutralMode(NeutralMode.Coast);
+    rightDrivePrimary.setNeutralMode(NeutralMode.Coast);
+    leftDriveBack.setNeutralMode(NeutralMode.Coast);
+    rightDriveBack.setNeutralMode(NeutralMode.Coast);
+  }
 
   //---------------------------Place Getters Here-------------------------------
 
@@ -210,6 +257,20 @@ public class DriveSubsystem extends SubsystemBase {
 
 
   //---------------------------Place Others Here--------------------------------
+  
+  //Name: Brennan
+  //About: Creates the drive train drive
+  public void ArcadeDrive(double speed, double turn){
+    drive_t.arcadeDrive(speed, turn);
+  }
+
+  //Name:Brennan 
+  //About: sets the max output of the motors to reduce speed in a pinch
+  public void setMaxOutput(double maxOutput){
+    drive_t.setMaxOutput(maxOutput);
+  }
+
+
   public void resetEncoders() {
     leftDrivePrimary.setSelectedSensorPosition(0);
     rightDrivePrimary.setSelectedSensorPosition(0);
@@ -268,7 +329,7 @@ public class DriveSubsystem extends SubsystemBase {
   //About: rotate the drive motors for elevator control using magic motion
   public void elevatorMotionMagic(double wheelrotRight, double wheelrotLeft){
     if(m_configCorrectly){
-      configElevatorMagic();
+      setMotionMagicMode();
     }
 
     double targetPosition =  Constants.encoderTicksPerRev * wheelrotRight * Constants.kGearRatio; //10.
@@ -276,6 +337,19 @@ public class DriveSubsystem extends SubsystemBase {
   
     rightDrivePrimary.set(ControlMode.MotionMagic, targetPosition);
     leftDrivePrimary.set(ControlMode.MotionMagic, targetPosition2);
+  }
+
+  //Name: Brennan 
+  //About: drive based on the gyro angle 
+  public void driveWithGyro(double setAngle){
+    double angle = navx.getAngle();
+    double target = setAngle;
+    double error = angle - target;
+    double kP = 0.85;
+    double speed = kP * error;
+
+    rightDrivePrimary.set(ControlMode.PercentOutput, speed);
+    leftDrivePrimary  .set(ControlMode.PercentOutput, -speed);
   }
 
   @Override

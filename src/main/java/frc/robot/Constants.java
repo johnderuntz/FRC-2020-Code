@@ -47,8 +47,9 @@ public final class Constants {
 
         //About: set the ticks and the RPM and Ticks conversions 
         public static final double veloTPR = 1023;
-        public static final double ticksPerRPM = (2048*60)/(600*16);
-        public static final double RPMPerTicks = (600*16)/(2048*60);
+        public static final double kTickstoRPM  = (600*1)/(1023*1.5);
+        public static final double kRPMtoTicks = (1023*1)/(600*1.5);
+        public static final double flyGearRatio = (1/1.5);
 
         //About: the constant varialbes for the hood of the shooter 
         public static final double hoodGearRatio = 1/4;
