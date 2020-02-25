@@ -19,8 +19,6 @@ public class AlignandShoot extends CommandBase {
   private final Limelight m_limelight;
   private final Shooter m_shooter;
   private final FeederToShooter m_feedertoshooter;
-  private final Double m_speed;
-  private final Double m_angle;
   private final Double m_time;
 
   //create the doubles for time 
@@ -30,8 +28,6 @@ public class AlignandShoot extends CommandBase {
     m_limelight = lime;
     m_shooter = shoot;
     m_feedertoshooter = FandS;
-    m_speed = speed;
-    m_angle = angle;
     m_time = time;
 
     //About: add the required subsystems

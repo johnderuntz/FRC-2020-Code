@@ -9,50 +9,50 @@ package frc.robot.commands.shootercommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-//import the subsystems
-import frc.robot.subsystems.Limelight;
+//import subsystems 
 import frc.robot.subsystems.Shooter;
 
-public class shooterAlign extends CommandBase {
-  private final Limelight m_limelight;
+public class ResetingHoodAngle extends CommandBase {
   private final Shooter m_shooter;
   private boolean hood_isFinished;
 
-  public shooterAlign(Limelight limelight, Shooter shooter) {
-    m_limelight = limelight;
-    m_shooter = shooter;
+  public ResetingHoodAngle(Shooter shoot) {
+    m_shooter = shoot;
 
-    addRequirements(m_limelight);
     addRequirements(m_shooter);
   }
 
-
-  //About: Configure the motors for the change in position 
+  //About: configure the motors 
   @Override
   public void initialize() {
-    m_shooter.ConfigPositonangle();
+    m_shooter.configHoodClosedLoop();
     hood_isFinished = false;
-
   }
 
-  //About: set the hood angle 
+  //About: set the hood position back to zero
   @Override
-  public void execute() { 
-    double kangle = m_shooter.hoodAngleTable();
-    m_shooter.changeHoodPosition(kangle);
+  public void execute() {
+    m_shooter.resetHoodwithLimit();
+    System.out.println("Hood is moving down");
 
-    if(( (m_shooter.getHoodAngle() >= (m_shooter.getHoodAngle() -.2) ) && (m_shooter.getHoodAngle() <= (m_shooter.hoodAngleTable()+.2) )) || !m_limelight.validTarget()){
+    if(m_shooter.getHoodLimitSwitch()){
+      System.out.println("The Hood has hit the limit switch");
       hood_isFinished = true;
-      System.out.println("it has reached its angle");
+    }
+    else if (m_shooter.getHoodAngle() == 0){
+      System.out.println("The Hood has reached angle 0");
+      hood_isFinished = true;
     }
   }
 
-  //About: when the hood finishes set the power to zero 
+  //About: set the hood power back down to zero 
   @Override
   public void end(boolean interrupted) {
     m_shooter.setHoodPower(0);
+    m_shooter.resetHoodEncoder();
   }
 
+  //About: stop the hood
   @Override
   public boolean isFinished() {
     return hood_isFinished;

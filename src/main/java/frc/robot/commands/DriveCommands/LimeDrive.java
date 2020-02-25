@@ -1,80 +1,77 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands.DriveCommands;
-
-import java.util.function.DoubleSupplier;
-
+import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-//About: import other classes
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Limelight;
 
-public class LimeDrive extends CommandBase {
-  private final DriveSubsystem drivesubsystem;
+public class LimeDrive extends CommandBase{
+  private final DriveSubsystem drivetrain;
   private final Limelight limelight;
-  private final DoubleSupplier m_speed; 
+  /*
+  Uses data from the Limelight subsystem to correct
+  the robot's horizontal offset from the target
+  */
+  public LimeDrive(DriveSubsystem drive, Limelight lime){
+    drivetrain = drive;
+    limelight = lime;
 
-  public LimeDrive(DoubleSupplier speed, DriveSubsystem m_drive, Limelight m_limelight) {
-    drivesubsystem = m_drive;
-    limelight = m_limelight;
-    m_speed = speed;
-
-    addRequirements(m_drive);
-    addRequirements(m_limelight);
+    addRequirements(drive);
+    addRequirements(lime);
   }
 
   @Override
-  public void initialize() {
-    //About: start the brake so you don't overshoot
-    drivesubsystem.ebrake();
+  public void initialize(){
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    //Name: Brennan 
+  public void execute(){
     /*
-      About :Calculates level of adjustment required to shift the robot to the target on-screen
+      Calculates level of adjustment required to shift the robot to the target on-screen
       Remember to reconfigure Kp and minPower depending on the driving surface,
       esp. before competition
     */
-    double headingError = limelight.getHorizontalOffset();
+    double headingError = limelight.getHorizontalOffset() + 5;
     double steeringAdjust = 0.0f;
-    double kP = 0.05;
-    double minPower = 0.0;
+    double Kp = 0.01;
+    double minPower = 0.32;
 
-    if (limelight.validTarget()){
-      if(limelight.getHorizontalOffset() > 1){
-        steeringAdjust = kP * headingError - minPower;
-      }
-      else if (headingError < 1){ 
-        steeringAdjust = kP *headingError + minPower;
-      }
-      drivesubsystem.ArcadeDrive(m_speed.getAsDouble(), steeringAdjust);
+    if (!limelight.validTarget()){
+      steeringAdjust = 0.6;
     }
+    if (limelight.validTarget()){
+      if (headingError > 1.3){
+        steeringAdjust = Kp * headingError + minPower;
+      }else if (headingError < 1.0){
+        steeringAdjust = Kp * headingError - minPower;
+      }
+    }
+
+    drivetrain.ArcadeDrive(steeringAdjust, RobotContainer.driver.getRawAxis(1));
+    Timer.delay(.005);
   }
 
-  // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    //About: end the brake mode for standard drive
-    drivesubsystem.no_ebrake();
+  public void end(boolean interrupted){
+    System.out.println("Aligned with the target");
   }
 
-  // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
-    if (limelight.getHorizontalOffset() == 0){
+  public boolean isFinished(){
+    if (((limelight.getHorizontalOffset() - 5) >= -0.1 && (limelight.getHorizontalOffset() - 5) <= 0.1)){
       return true;
     }
     else{
     return false;
     }
   }
+  
 }

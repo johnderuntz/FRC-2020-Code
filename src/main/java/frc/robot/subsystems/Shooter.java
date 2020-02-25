@@ -186,6 +186,12 @@ public class Shooter extends SubsystemBase {
   }
 
   //Name: Brennan 
+  //About: get the state of the limit switch 
+  public boolean getHoodLimitSwitch(){
+    return hoodLimitSwitch.get();
+  }
+
+  //Name: Brennan 
   //About: get the angle of the hood motor in degrees using the CTRE mag encoder 
   public double getHoodAngle(){
     return hoodAdjuster.getSelectedSensorPosition() * 0.087890625;
@@ -301,7 +307,7 @@ public class Shooter extends SubsystemBase {
   public void resetHoodEncoder(){
     hoodAdjuster.setSelectedSensorPosition(0);
   }
-  
+
   //Name: Brennan 
   //About: Using percent output to set the power of the hoodmotor 
   public void setHoodPower(double power) {
@@ -332,5 +338,6 @@ public class Shooter extends SubsystemBase {
     //About: Display all of the values you want to monitor 
     SmartDashboard.putNumber("Shooter Velocity", getTotalShooterRPM());
     SmartDashboard.putNumber("Hood Angle", getHoodAngle());
+    SmartDashboard.putBoolean("Hood Limit Switch", getHoodLimitSwitch());
   }
 }
