@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommands.LimeDrive;
+
 //import all the commands 
 import frc.robot.commands.DriveCommands.PlayerDrive;
 import frc.robot.commands.AutoCommands.SimpleAuto1;
@@ -90,7 +91,6 @@ public class RobotContainer {
     new JoystickButton(operator, Button.kStart.value)
       .whenPressed(()-> m_shooter.setPower(1))
       .whenReleased(()-> m_shooter.setPower(0));
-    
 
   }
 

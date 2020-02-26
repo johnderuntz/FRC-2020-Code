@@ -27,7 +27,7 @@ public class SimpleAuto1 extends SequentialCommandGroup {
 
     super(
       new TimedLimeDrive(drive, lime),
-      new AlignandShoot(lime, shoot, FtoS, 1.00, 0.00, 5.00),
+      new AlignandShoot(lime, shoot, FtoS, 0.00, 0.00, 5.00),
       new MotionMagic(2.0, 2.0, drive)  
     );
   }
