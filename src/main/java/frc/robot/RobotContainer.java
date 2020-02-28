@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.DriveCommands.LimeDrive;
 
 //import all the commands 
@@ -77,7 +76,7 @@ public class RobotContainer {
     new JoystickButton(driver, Button.kB.value).toggleWhenPressed(new GroundFeeder(m_ballfeeder));
     new JoystickButton(driver, Button.kA.value).whenHeld(new LimeDrive(m_driveSubsystem, m_limelight));
     new JoystickButton(driver, Button.kY.value).whenPressed(new GroundFeederShifter(m_ballfeeder));
-    new JoystickButton(driver, Button.kStickRight.value).toggleWhenPressed(new LimelightToggle(m_limelight));
+    new JoystickButton(driver, Button.kStickRight.value).whenPressed(new LimelightToggle(m_limelight));
     new JoystickButton(driver, Button.kX.value)
       .whenPressed(()-> m_driveSubsystem.ebrake())
       .whenReleased(()-> m_driveSubsystem.no_ebrake());

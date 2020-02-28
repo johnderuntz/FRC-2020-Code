@@ -42,6 +42,6 @@ public class LimelightToggle extends CommandBase {
   //About: set when the limelight will turn off 
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
