@@ -24,7 +24,7 @@ public class DrivingWithGyro extends CommandBase {
     m_drive = drive;
 
     long startTime = System.currentTimeMillis();
-    length = m_time * 10000;
+    length = m_time * 1000;
     endtime = startTime + length;
   }
 
@@ -56,6 +56,7 @@ public class DrivingWithGyro extends CommandBase {
       return true;
     }
     else if (System.currentTimeMillis() >= endtime){
+      System.out.println("The gyro drive has timed out");
       return true;
     }
     return false;

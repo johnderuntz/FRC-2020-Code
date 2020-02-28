@@ -84,6 +84,8 @@ public class DriveSubsystem extends SubsystemBase {
     rightDrivePrimary.set(ControlMode.PercentOutput, rightVoltage/12);
   }
 
+  //Name: Brennan 
+  //About: configs the motors on the robot for motion magic mode so that we can use some auto commands 
   public void setMotionMagicMode(){
     //set the motors to factory default 
     leftDrivePrimary.configFactoryDefault();
@@ -141,12 +143,12 @@ public class DriveSubsystem extends SubsystemBase {
     rightDrivePrimary.setSelectedSensorPosition(0, 0, 0);
 
     //set the PID values for the master motor controllers 
-    rightDrivePrimary.config_kP(0, 0.78);
+    rightDrivePrimary.config_kP(0, 0.95);
     rightDrivePrimary.config_kI(0, 0);
     rightDrivePrimary.config_kD(0, 0);
     rightDrivePrimary.config_kF(0, 0.6);
 
-    leftDrivePrimary.config_kP(0, 0.78);
+    leftDrivePrimary.config_kP(0, 0.95);
     rightDrivePrimary.config_kI(0, 0);
     leftDrivePrimary.config_kD(0, 0);
     leftDrivePrimary.config_kF(0, 0.6);
@@ -270,12 +272,15 @@ public class DriveSubsystem extends SubsystemBase {
     drive_t.setMaxOutput(maxOutput);
   }
 
-
+  //Name:Brennan 
+  //About: 0's the position of the encoders 
   public void resetEncoders() {
     leftDrivePrimary.setSelectedSensorPosition(0);
     rightDrivePrimary.setSelectedSensorPosition(0);
   }
 
+  //Name: Jack
+  //About: 0's the gyro angle 
   public void resetHeading() {
     navx.reset();
   }

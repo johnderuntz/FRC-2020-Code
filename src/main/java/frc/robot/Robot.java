@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    lm.setLED(3);
+    lm.setLED(1);
   }
 
   @Override

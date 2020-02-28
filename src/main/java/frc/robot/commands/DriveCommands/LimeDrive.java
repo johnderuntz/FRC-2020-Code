@@ -60,7 +60,6 @@ public class LimeDrive extends CommandBase{
 
   @Override
   public void end(boolean interrupted){
-    limelight.setLED(1);
     System.out.println("Aligned with the target");
   }
 

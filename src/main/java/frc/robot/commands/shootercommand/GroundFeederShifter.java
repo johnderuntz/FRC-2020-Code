@@ -25,18 +25,19 @@ public class GroundFeederShifter extends CommandBase {
   public void initialize() {
   }
 
+  //About: shift the feeder into the down position 
   @Override
   public void execute() {
     m_ballfeeder.shiftFeeder();
     m_ballfeeder.shiftFeeder2();
   }
 
-  // Called once the command ends or is interrupted.
+  
   @Override
   public void end(boolean interrupted) {
   }
 
-  // Returns true when the command should end.
+  //About: Make sure this returns true so that it doesn't activate over and over 
   @Override
   public boolean isFinished() {
     return true;

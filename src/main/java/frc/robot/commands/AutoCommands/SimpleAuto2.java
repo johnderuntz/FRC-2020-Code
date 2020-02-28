@@ -8,7 +8,7 @@
 package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-
+import frc.robot.commands.DriveCommands.DrivingWithGyro;
 //import commands 
 import frc.robot.commands.DriveCommands.MotionMagic;
 import frc.robot.commands.DriveCommands.TimedLimeDrive;
@@ -28,6 +28,7 @@ public class SimpleAuto2 extends SequentialCommandGroup {
     super(
       new TimedLimeDrive(drive, lime),
       new AlignandShoot(lime, shoot, FtoS, 0.00, 0.00, 5.00),
+      new DrivingWithGyro(0.0, 1.00, drive),
       new MotionMagic(-2.0, -2.0, drive)  
     );
   }

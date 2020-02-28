@@ -44,11 +44,10 @@ public class RobotContainer {
   private final Shooter m_shooter = new Shooter();
   private final FeederToShooter m_feed = new FeederToShooter();
   private final BallFeeder m_ballfeeder = new BallFeeder();
-  //Define Commands Here
-  
 
   //Define Anything Else Here
 
+  //Instanciate the robot controllers 
   public static final XboxController driver = new XboxController(0);
   public static final XboxController operator = new XboxController(1);
 
@@ -105,7 +104,8 @@ public class RobotContainer {
     new POVButton(operator, Button.kStart.value)
       .whenPressed(()-> m_shooter.setHoodPower(.8))
       .whenReleased(()-> m_shooter.setHoodPower(0));  
-    //About: set the dpad operator buttons 
+    
+      //About: set the dpad operator buttons 
     
 
   }
