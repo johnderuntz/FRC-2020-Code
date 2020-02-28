@@ -30,6 +30,7 @@ public class shooterAlign extends CommandBase {
   //About: Configure the motors for the change in position 
   @Override
   public void initialize() {
+    m_limelight.setLED(3);
     m_shooter.ConfigPositonangle();
     hood_isFinished = false;
 
@@ -41,7 +42,7 @@ public class shooterAlign extends CommandBase {
     double kangle = m_shooter.hoodAngleTable();
     m_shooter.changeHoodPosition(kangle);
 
-    if(( (m_shooter.getHoodAngle() >= (m_shooter.getHoodAngle() -.2) ) && (m_shooter.getHoodAngle() <= (m_shooter.hoodAngleTable()+.2) )) || !m_limelight.validTarget()){
+    if(( (m_shooter.getHoodAngle() >= (m_shooter.getHoodAngle() -.2) ) && (m_shooter.getHoodAngle() <= (m_shooter.hoodAngleTable()+.2) ))){
       hood_isFinished = true;
       System.out.println("it has reached its angle");
     }
@@ -50,6 +51,7 @@ public class shooterAlign extends CommandBase {
   //About: when the hood finishes set the power to zero 
   @Override
   public void end(boolean interrupted) {
+    m_limelight.setLED(3);
     m_shooter.setHoodPower(0);
   }
 

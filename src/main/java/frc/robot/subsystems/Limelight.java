@@ -70,7 +70,6 @@ public class Limelight extends SubsystemBase {
   //About: calc the distance to the target
   public double distanceToTarget(){
     double offsetAngle = verticalOffset.getDouble(0);
-    System.out.println("Distance to target:" + (Constants.LimelightConstants.goalHeight-Constants.LimelightConstants.cameraHeight)/Math.tan(Constants.LimelightConstants.mountAngle + ((offsetAngle*2*Math.PI)/360)));
     return (Constants.LimelightConstants.goalHeight-Constants.LimelightConstants.cameraHeight)/Math.tan(Constants.LimelightConstants.mountAngle + ((offsetAngle*2*Math.PI)/360));
   }
 
@@ -116,7 +115,6 @@ public class Limelight extends SubsystemBase {
       setVelocity = 0;
     }
 
-    System.out.println("Set Shooter velocity" + setVelocity);
     return setVelocity;
   }
 

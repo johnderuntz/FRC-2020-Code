@@ -47,7 +47,7 @@ public class DriveSubsystem extends SubsystemBase {
       DifferentialDrive drive_t = new DifferentialDrive(rightDrivePrimary, leftDrivePrimary);
       
       //create the penumatics 
-      DoubleSolenoid driveShift = new DoubleSolenoid(0,1);
+      DoubleSolenoid driveShift = new DoubleSolenoid(0,7);
       
       //things for motion magic
       StringBuilder _sb = new StringBuilder();
@@ -99,7 +99,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     //Set the sensor phase
     leftDrivePrimary.setSensorPhase(false);
-    rightDrivePrimary.setSensorPhase(false);
+    rightDrivePrimary.setSensorPhase(true);
 
     //Set inverted
     rightDrivePrimary.setInverted(true);
@@ -261,7 +261,7 @@ public class DriveSubsystem extends SubsystemBase {
   //Name: Brennan
   //About: Creates the drive train drive
   public void ArcadeDrive(double speed, double turn){
-    drive_t.arcadeDrive(speed, turn);
+    drive_t.arcadeDrive(-speed, -turn);
   }
 
   //Name:Brennan 
@@ -345,7 +345,7 @@ public class DriveSubsystem extends SubsystemBase {
     double angle = navx.getAngle();
     double target = setAngle;
     double error = angle - target;
-    double kP = 0.85;
+    double kP = 0.95;
     double speed = kP * error;
 
     rightDrivePrimary.set(ControlMode.PercentOutput, speed);

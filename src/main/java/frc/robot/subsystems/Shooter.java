@@ -194,7 +194,7 @@ public class Shooter extends SubsystemBase {
   //Name: Brennan 
   //About: get the angle of the hood motor in degrees using the CTRE mag encoder 
   public double getHoodAngle(){
-    return hoodAdjuster.getSelectedSensorPosition() * 0.087890625;
+    return hoodAdjuster.getSelectedSensorPosition() * -0.087890625;
   }
 
   //Name: Jack

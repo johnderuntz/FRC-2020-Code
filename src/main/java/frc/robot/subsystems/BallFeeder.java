@@ -20,7 +20,8 @@ public class BallFeeder extends SubsystemBase {
 
   public WPI_TalonSRX feeder_1 = new WPI_TalonSRX(21);
   
-  private DoubleSolenoid ballFeedShift = new DoubleSolenoid(2,3);
+  private DoubleSolenoid ballFeedShift1 = new DoubleSolenoid(1,6);
+  private DoubleSolenoid ballFeedShift2 = new DoubleSolenoid(2,5);
 
   public BallFeeder() {
 
@@ -32,15 +33,31 @@ public class BallFeeder extends SubsystemBase {
   //Name: Brennan 
   //About: will shift the pistion on and off 
   public void shiftFeeder(){
-    switch (ballFeedShift.get()){
+    switch (ballFeedShift1.get()){
       case kOff:
-        ballFeedShift.set(DoubleSolenoid.Value.kForward);
+        ballFeedShift1.set(DoubleSolenoid.Value.kForward);
        break;
       case kForward:
-        ballFeedShift.set(DoubleSolenoid.Value.kReverse);
+        ballFeedShift1.set(DoubleSolenoid.Value.kReverse);
        break;
       case kReverse:
-        ballFeedShift.set(DoubleSolenoid.Value.kForward);
+        ballFeedShift1.set(DoubleSolenoid.Value.kForward);
+        break;
+    }
+  }
+
+  //Name: Brennan 
+  //About: will shift the pistion on and off 
+  public void shiftFeeder2(){
+    switch (ballFeedShift2.get()){
+      case kOff:
+        ballFeedShift2.set(DoubleSolenoid.Value.kForward);
+       break;
+      case kForward:
+        ballFeedShift2.set(DoubleSolenoid.Value.kReverse);
+       break;
+      case kReverse:
+        ballFeedShift2.set(DoubleSolenoid.Value.kForward);
         break;
     }
   }

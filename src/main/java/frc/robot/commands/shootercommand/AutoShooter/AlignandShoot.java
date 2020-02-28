@@ -37,13 +37,14 @@ public class AlignandShoot extends CommandBase {
 
     //start the timer
     long startTime = System.currentTimeMillis();
-    length = m_time * 10000;
+    length = m_time * 1000;
     endtime = startTime + length;
   }
 
   //About: configure the motors for the proper mode 
   @Override
   public void initialize() {
+    m_limelight.setLED(3);
     m_shooter.configClosedLoop();
     m_shooter.ConfigPositonangle();
     System.out.println("Starting to Shoot");
@@ -58,8 +59,8 @@ public class AlignandShoot extends CommandBase {
       m_feedertoshooter.intaketoShooter();
     }
 
-    m_shooter.changeHoodPosition(-m_shooter.hoodAngleTable());
-    if ((m_shooter.getHoodAngle() >= (m_shooter.getHoodAngle()-0.2)) && (m_shooter.getHoodAngle() >= (m_shooter.getHoodAngle() + 0.2))){
+    m_shooter.changeHoodPosition(m_shooter.hoodAngleTable());
+    if ((m_shooter.getHoodAngle() <= (m_shooter.getHoodAngle()-0.2)) && (m_shooter.getHoodAngle() <= (m_shooter.getHoodAngle() + 0.2))){
       m_shooter.setHoodPower(0);
     }  
   }
@@ -68,6 +69,8 @@ public class AlignandShoot extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_feedertoshooter.Stop();
+    m_shooter.setHoodPower(0);
+    m_shooter.setPower(0);
     System.out.println("Stopping the Shooter");
   }
 
@@ -76,6 +79,7 @@ public class AlignandShoot extends CommandBase {
   public boolean isFinished() {
     if(System.currentTimeMillis() >= endtime){
       System.out.println("The time has ended");
+      return true;
     }
     return false;
   }

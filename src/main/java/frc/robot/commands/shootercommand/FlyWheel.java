@@ -27,6 +27,7 @@ public class FlyWheel extends CommandBase {
 
   @Override
   public void initialize() {
+    m_limelight.setLED(3);
   }
 
   @Override

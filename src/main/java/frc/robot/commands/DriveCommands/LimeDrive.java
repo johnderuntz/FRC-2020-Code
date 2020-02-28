@@ -30,6 +30,7 @@ public class LimeDrive extends CommandBase{
 
   @Override
   public void initialize(){
+    limelight.setLED(3);
   }
 
   @Override
@@ -44,9 +45,7 @@ public class LimeDrive extends CommandBase{
     double Kp = 0.01;
     double minPower = 0.32;
 
-    if (!limelight.validTarget()){
-      steeringAdjust = 0.6;
-    }
+  
     if (limelight.validTarget()){
       if (headingError > 1.3){
         steeringAdjust = Kp * headingError + minPower;
@@ -61,6 +60,7 @@ public class LimeDrive extends CommandBase{
 
   @Override
   public void end(boolean interrupted){
+    limelight.setLED(1);
     System.out.println("Aligned with the target");
   }
 

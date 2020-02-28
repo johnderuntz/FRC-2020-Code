@@ -9,35 +9,36 @@ package frc.robot.commands.shootercommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-//import subsystems 
+//About: Import subsystems 
 import frc.robot.subsystems.BallFeeder;
 
-public class GroundFeeder extends CommandBase {
-  private final BallFeeder m_ballFeeder;
+public class GroundFeederShiter extends CommandBase {
+  private final BallFeeder m_ballfeeder;
 
-  public GroundFeeder(BallFeeder ball) {
-    m_ballFeeder = ball; 
+  public GroundFeederShiter(BallFeeder ballfeeder) {
+    m_ballfeeder = ballfeeder;
+
+    addRequirements(m_ballfeeder);
   }
 
   @Override
   public void initialize() {
   }
 
-  //About: turn the feeder on 
   @Override
   public void execute() {
-    m_ballFeeder.feederOn();
+    m_ballfeeder.shiftFeeder();
+    m_ballfeeder.shiftFeeder2();
   }
 
-  //About: turn the feedre off
+  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_ballFeeder.feederOFF();
   }
 
-  //About: turns the thing off 
+  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

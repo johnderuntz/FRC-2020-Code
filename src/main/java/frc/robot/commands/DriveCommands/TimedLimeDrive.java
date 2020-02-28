@@ -30,7 +30,7 @@ public class TimedLimeDrive extends CommandBase{
     limelight = lime;
 
     long startTime = System.currentTimeMillis();
-    time = 20000;
+    time = 2000;
     endtime = startTime + time;
 
     addRequirements(drive);
@@ -39,6 +39,7 @@ public class TimedLimeDrive extends CommandBase{
 
   @Override
   public void initialize(){
+    limelight.setLED(3);
   }
 
   @Override
@@ -73,6 +74,7 @@ public class TimedLimeDrive extends CommandBase{
   public void end(boolean interrupted){
     System.out.println("Aligned with the target");
     drivetrain.ArcadeDrive(0, 0);
+    limelight.setLED(1);
   }
 
   //About: Will stop when it has finished adjusting or when the time runs out super helpful for auto
