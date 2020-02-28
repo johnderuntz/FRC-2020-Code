@@ -88,13 +88,13 @@ public class Limelight extends SubsystemBase {
       setVelocity = 2717.19;
     }
     else if ((distanceToTarget() >= 4.5) &&( distanceToTarget() < 7.5)){
-      setVelocity = 4929.93;
+      setVelocity = 3058.00;
     }
     else if ((distanceToTarget() >= 7.5) &&( distanceToTarget() < 9.5)){
-      setVelocity = 4012.73;
+      setVelocity = 3299.00;
     }
     else if ((distanceToTarget() >= 9.5) &&( distanceToTarget() < 11.5)){
-      setVelocity = 4127.38;
+      setVelocity = 3413.00;
     }
     else if ((distanceToTarget() >= 11.5) &&( distanceToTarget() < 13.5)){
       setVelocity = 4643.31;

@@ -224,37 +224,37 @@ public class Shooter extends SubsystemBase {
     double setAngle = 0;
 
     if ((m_limelight.distanceToTarget() >= 0 ) && (m_limelight.distanceToTarget() < .5 )){
-      setAngle = 87;
+      setAngle = 0;
     }
     else if ((m_limelight.distanceToTarget() >= .5 ) && (m_limelight.distanceToTarget() < 3 )){
-      setAngle = 63;
+      setAngle = 15;
     }
     else if ((m_limelight.distanceToTarget() >= 3 ) && (m_limelight.distanceToTarget() < 4.5 )){
-      setAngle = 59;
+      setAngle = 20;
     }
     else if ((m_limelight.distanceToTarget() >= 4.5 ) && (m_limelight.distanceToTarget() < 7.5 )){
-      setAngle = 29;
+      setAngle = 49;
     }
     else if ((m_limelight.distanceToTarget() >= 7.5 ) && (m_limelight.distanceToTarget() < 9.5 )){
-      setAngle = 35;
+      setAngle = 45;
     }
     else if ((m_limelight.distanceToTarget() >= 9.5 ) && (m_limelight.distanceToTarget() < 11.5 )){
-      setAngle = 34;
+      setAngle = 48;
     }
     else if ((m_limelight.distanceToTarget() >= 11.5 ) && (m_limelight.distanceToTarget() < 13.5 )){
-      setAngle = 30;
+      setAngle = 49.5;
     }
     else if ((m_limelight.distanceToTarget() >= 13.5 ) && (m_limelight.distanceToTarget() < 14.5 )){
-      setAngle = 29; //tech 28.5
+      setAngle = 53.3; //tech 28.5
     }
     else if ((m_limelight.distanceToTarget() >= 14.5 ) && (m_limelight.distanceToTarget() < 15.5 )){
-      setAngle = 28;
+      setAngle = 56;
     }
     else if ((m_limelight.distanceToTarget() >= 15.5 ) && (m_limelight.distanceToTarget() < 17.5 )){
-      setAngle = 22; //tech 22.5
+      setAngle = 59; //tech 22.5
     }
     else if ((m_limelight.distanceToTarget() >= 17.5 ) && (m_limelight.distanceToTarget() < 20 )){
-      setAngle = 23;
+      setAngle = 60;
     }
     System.out.println("Set Shooter velocity" + setAngle);
     
@@ -294,8 +294,7 @@ public class Shooter extends SubsystemBase {
         hoodAdjuster.setSelectedSensorPosition(0);
       }
     }
-
-    if(limit){
+    while(limit){
 
       hoodAdjuster.set(ControlMode.PercentOutput, 0);
       hoodAdjuster.setSelectedSensorPosition(0);

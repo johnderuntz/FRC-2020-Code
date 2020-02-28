@@ -5,40 +5,43 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shootercommand;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-//About: Import subsystems 
-import frc.robot.subsystems.BallFeeder;
+//About:Import subsystems
+import frc.robot.subsystems.Limelight;
 
-public class GroundFeederShiter extends CommandBase {
-  private final BallFeeder m_ballfeeder;
+public class LimelightToggle extends CommandBase {
+  private final Limelight m_limelight;
 
-  public GroundFeederShiter(BallFeeder ballfeeder) {
-    m_ballfeeder = ballfeeder;
+  public LimelightToggle(Limelight limelight) {
+    m_limelight = limelight;
 
-    addRequirements(m_ballfeeder);
+    addRequirements(m_limelight);
   }
 
+ 
   @Override
   public void initialize() {
   }
 
+  //About: will toggle the limelight on 
   @Override
   public void execute() {
-    m_ballfeeder.shiftFeeder();
-    m_ballfeeder.shiftFeeder2();
+    m_limelight.setLED(3);
   }
 
-  // Called once the command ends or is interrupted.
+  //About: will toggle the limelight off
   @Override
   public void end(boolean interrupted) {
+    m_limelight.setLED(1);
   }
 
-  // Returns true when the command should end.
+
+  //About: set when the limelight will turn off 
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

@@ -37,8 +37,8 @@ public final class Constants {
 
     //About: Set the camera height and goal height for distance calculations 
     public static final double cameraHeight = 2.583; //Camera height in meters
-    public static final double goalHeight = 8.1875; //Hatch panel height in meters
-    public static final double mountAngle = .436332; //26.3258
+    public static final double goalHeight = 7.5; //Hatch panel height in meters
+    public static final double mountAngle = 0.612706; //26.3258
 
     }
 

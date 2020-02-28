@@ -41,8 +41,8 @@ public class shooterAlign extends CommandBase {
   public void execute() { 
     double kangle = m_shooter.hoodAngleTable();
     m_shooter.changeHoodPosition(kangle);
-
-    if(( (m_shooter.getHoodAngle() >= (m_shooter.getHoodAngle() -.2) ) && (m_shooter.getHoodAngle() <= (m_shooter.hoodAngleTable()+.2) ))){
+    
+    if ((m_shooter.getHoodAngle() <= (m_shooter.getHoodAngle() - 0.2)) && (m_shooter.getHoodAngle() <= (m_shooter.getHoodAngle() + 0.2))){
       hood_isFinished = true;
       System.out.println("it has reached its angle");
     }
