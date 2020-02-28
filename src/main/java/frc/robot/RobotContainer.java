@@ -101,7 +101,7 @@ public class RobotContainer {
     new JoystickButton(operator, Button.kBack.value)
       .whenPressed(()-> m_shooter.setHoodPower(-.6))
       .whenReleased(()-> m_shooter.setHoodPower(0));
-    new POVButton(operator, Button.kStart.value)
+    new JoystickButton(operator, Button.kStart.value)
       .whenPressed(()-> m_shooter.setHoodPower(.8))
       .whenReleased(()-> m_shooter.setHoodPower(0));  
     

@@ -30,20 +30,18 @@ public class FlyWheel extends CommandBase {
     m_limelight.setLED(3);
   }
 
+  //About: activates the flywheels and sets the shooter velocity 
   @Override
   public void execute() {
-    //Name: Brennan
     //About: convert the velocity into encoder ticks and account for the gear ratio
     double convertedVelocity = (m_limelight.getShooterVelocity() * Constants.ShooterConstants.flyGearRatio);
 
-    //About: activates the flywheels and sets the shooter velocity 
     m_shooter.setShootSpeed(convertedVelocity);
   }
 
+  //About: turn the flywheels off
   @Override
   public void end(boolean interrupted) {
-
-    //About: turn the flywheels off
     m_shooter.setPower(0.0);
   }
 

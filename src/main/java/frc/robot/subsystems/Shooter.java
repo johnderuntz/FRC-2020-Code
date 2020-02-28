@@ -233,28 +233,46 @@ public class Shooter extends SubsystemBase {
       setAngle = 20;
     }
     else if ((m_limelight.distanceToTarget() >= 4.5 ) && (m_limelight.distanceToTarget() < 7.5 )){
-      setAngle = 49;
+      setAngle = 31;
     }
     else if ((m_limelight.distanceToTarget() >= 7.5 ) && (m_limelight.distanceToTarget() < 9.5 )){
-      setAngle = 45;
+      setAngle = 42.7;
     }
     else if ((m_limelight.distanceToTarget() >= 9.5 ) && (m_limelight.distanceToTarget() < 11.5 )){
-      setAngle = 48;
+      setAngle = 47.5;
     }
     else if ((m_limelight.distanceToTarget() >= 11.5 ) && (m_limelight.distanceToTarget() < 13.5 )){
-      setAngle = 49.5;
+      setAngle = 51.6;
     }
     else if ((m_limelight.distanceToTarget() >= 13.5 ) && (m_limelight.distanceToTarget() < 14.5 )){
-      setAngle = 53.3; //tech 28.5
-    }
-    else if ((m_limelight.distanceToTarget() >= 14.5 ) && (m_limelight.distanceToTarget() < 15.5 )){
       setAngle = 56;
     }
+    else if ((m_limelight.distanceToTarget() >= 14.5 ) && (m_limelight.distanceToTarget() < 15.5 )){
+      setAngle = 57;
+    }
     else if ((m_limelight.distanceToTarget() >= 15.5 ) && (m_limelight.distanceToTarget() < 17.5 )){
-      setAngle = 59; //tech 22.5
+      setAngle = 58.5;
     }
     else if ((m_limelight.distanceToTarget() >= 17.5 ) && (m_limelight.distanceToTarget() < 20 )){
-      setAngle = 60;
+      setAngle = 61.5;
+    }
+    else if ((m_limelight.distanceToTarget() >= 20.0 ) && (m_limelight.distanceToTarget() < 20.5 )){
+      setAngle = 63;
+    }
+    else if ((m_limelight.distanceToTarget() >= 20.5 ) && (m_limelight.distanceToTarget() < 21.0 )){
+      setAngle = 63.8;
+    }
+    else if ((m_limelight.distanceToTarget() >= 21.5 ) && (m_limelight.distanceToTarget() < 22.5 )){
+      setAngle = 64.7;
+    }
+    else if ((m_limelight.distanceToTarget() >= 22.5 ) && (m_limelight.distanceToTarget() < 24 )){
+      setAngle = 65.8;
+    }
+    else if ((m_limelight.distanceToTarget() >= 24 ) && (m_limelight.distanceToTarget() < 25.5 )){
+      setAngle = 67.3;
+    }
+    else if ((m_limelight.distanceToTarget() >= 25.5 ) && (m_limelight.distanceToTarget() < 27.5 )){
+      setAngle = 68.3;
     }
     System.out.println("Set Shooter velocity" + setAngle);
     
@@ -286,16 +304,9 @@ public class Shooter extends SubsystemBase {
     boolean limit = hoodLimitSwitch.get(); 
 
     while(!limit){
-
       hoodAdjuster.set(ControlMode.PercentOutput, 1.0);
-      if(limit){
-
-        hoodAdjuster.set(ControlMode.PercentOutput, 0);
-        hoodAdjuster.setSelectedSensorPosition(0);
-      }
     }
     while(limit){
-
       hoodAdjuster.set(ControlMode.PercentOutput, 0);
       hoodAdjuster.setSelectedSensorPosition(0);
     }

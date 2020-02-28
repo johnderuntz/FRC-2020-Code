@@ -94,22 +94,49 @@ public class Limelight extends SubsystemBase {
       setVelocity = 3299.00;
     }
     else if ((distanceToTarget() >= 9.5) &&( distanceToTarget() < 11.5)){
-      setVelocity = 3413.00;
+      setVelocity = 3574.00;
     }
     else if ((distanceToTarget() >= 11.5) &&( distanceToTarget() < 13.5)){
-      setVelocity = 4643.31;
+      setVelocity = 3872.00;
     }
     else if ((distanceToTarget() >= 13.5) &&( distanceToTarget() < 14.5)){
-      setVelocity = 4929.93;
+      setVelocity = 4250.00;
     }
     else if ((distanceToTarget() >= 14.5) &&( distanceToTarget() < 15.5)){
-      setVelocity = 5044.58;
+      setVelocity = 4353.00;
     }
     else if ((distanceToTarget() >= 15.5) &&( distanceToTarget() < 17.5)){
-      setVelocity = 6305.73;
+      setVelocity = 4582.00;
     }
     else if ((distanceToTarget() >= 17.5) &&( distanceToTarget() < 20.0)){
-      setVelocity = 6191.08;
+      setVelocity = 4949.00;
+    }
+    else if ((distanceToTarget() >= 20.0) &&( distanceToTarget() < 20.5)){
+      setVelocity = 5075.00;
+    }
+    else if ((distanceToTarget() >= 20.5) &&( distanceToTarget() < 21.0)){
+      setVelocity = 5144.00;
+    }
+    else if ((distanceToTarget() >= 21.0) &&( distanceToTarget() < 21.5)){
+      setVelocity = 5304.00;
+    }
+    else if ((distanceToTarget() >= 21.5) &&( distanceToTarget() < 22.0)){
+      setVelocity = 5339.00;
+    }
+    else if ((distanceToTarget() >= 22.0) &&( distanceToTarget() < 22.5)){
+      setVelocity = 5396.00;
+    }
+    else if ((distanceToTarget() >= 22.5) &&( distanceToTarget() < 23.0)){
+      setVelocity = 5476.00;
+    }
+    else if ((distanceToTarget() >= 23.0) &&( distanceToTarget() < 25.0)){
+      setVelocity = 5591.00;
+    }
+    else if ((distanceToTarget() >= 25.0) &&( distanceToTarget() < 25.5)){
+      setVelocity = 6049.00;
+    }
+    else if ((distanceToTarget() >= 26.0) &&( distanceToTarget() < 27.5)){
+      setVelocity = 6393.00;
     }
     else{
       setVelocity = 0;
@@ -159,10 +186,10 @@ public class Limelight extends SubsystemBase {
     return power;
   }
 
-  
-
+  //Name: Brennan 
+  //About: displayes useful values to the dashboard 
   @Override
   public void periodic() {
-    SmartDashboard.getNumber("Distance to Target", distanceToTarget());
+    SmartDashboard.putNumber("Distance to Target", distanceToTarget());
   }
 }
