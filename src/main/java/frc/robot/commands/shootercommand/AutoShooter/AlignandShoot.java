@@ -59,7 +59,7 @@ public class AlignandShoot extends CommandBase {
       m_feedertoshooter.intaketoShooter();
     }
 
-    m_shooter.changeHoodPosition(m_shooter.hoodAngleTable());
+    m_shooter.changeHoodPosition(0);
     if ((m_shooter.getHoodAngle() <= (m_shooter.getHoodAngle()-0.2)) && (m_shooter.getHoodAngle() <= (m_shooter.getHoodAngle() + 0.2))){
       m_shooter.setHoodPower(0);
     }  

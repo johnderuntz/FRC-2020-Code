@@ -103,6 +103,9 @@ public class DriveSubsystem extends SubsystemBase {
     leftDrivePrimary.setSensorPhase(false);
     rightDrivePrimary.setSensorPhase(true);
 
+    //set the saftey enabled to false
+    drive_t.setSafetyEnabled(false);
+
     //Set inverted
     rightDrivePrimary.setInverted(true);
     rightDriveBack.setInverted(true);
@@ -263,7 +266,7 @@ public class DriveSubsystem extends SubsystemBase {
   //Name: Brennan
   //About: Creates the drive train drive
   public void ArcadeDrive(double speed, double turn){
-    drive_t.arcadeDrive(-speed, -turn);
+    drive_t.arcadeDrive(speed, turn);
   }
 
   //Name:Brennan 

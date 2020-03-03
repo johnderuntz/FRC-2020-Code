@@ -17,7 +17,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class FeederToShooter extends SubsystemBase {
 
   //About: instanciate the Talons
-  public final TalonSRX conveyor_one = new TalonSRX(35);
+  public final TalonSRX conveyor_one = new TalonSRX(20);
   public final TalonSRX conveyor_two = new TalonSRX(32);
   public final TalonFX converyor_up = new TalonFX(31);
 
@@ -28,8 +28,8 @@ public class FeederToShooter extends SubsystemBase {
   //Name: Brennan
   //About: make the "power cell" go forward 
   public void intaketoShooter(){
-    conveyor_one.set(ControlMode.PercentOutput, .4);
-    conveyor_two.set(ControlMode.PercentOutput, -.5);
+    conveyor_one.set(ControlMode.PercentOutput, .8);
+    conveyor_two.set(ControlMode.PercentOutput, -.8);
     converyor_up.set(ControlMode.PercentOutput, .6);
     return;
   }

@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 //import commands 
 import frc.robot.commands.DriveCommands.MotionMagic;
-import frc.robot.commands.DriveCommands.TimedLimeDrive;
 import frc.robot.commands.shootercommand.AutoShooter.AlignandShoot;
 
 //Import the subsystems 
@@ -26,8 +25,7 @@ public class SimpleAuto1 extends SequentialCommandGroup {
   public SimpleAuto1(DriveSubsystem drive, Limelight lime, Shooter shoot, FeederToShooter FtoS) {
 
     super(
-      new TimedLimeDrive(drive, lime),
-      new AlignandShoot(lime, shoot, FtoS, 0.00, 0.00, 8.00),
+      new AlignandShoot(lime, shoot, FtoS, 0.00, 0.00, 4.00),
       new MotionMagic(2.0, 2.0, drive)  
     );
   }

@@ -24,8 +24,6 @@ import frc.robot.commands.shootercommand.shooterAlign;
 import frc.robot.commands.shootercommand.FlyWheel;
 import frc.robot.commands.shootercommand.ResetingHoodAngle;
 import frc.robot.commands.shootercommand.GroundFeeder;
-import frc.robot.commands.shootercommand.GroundFeederShifter;
-import frc.robot.commands.LimelightToggle;
 //import all the subsystems 
 import frc.robot.subsystems.BallFeeder;
 import frc.robot.subsystems.DriveSubsystem;
@@ -75,8 +73,6 @@ public class RobotContainer {
     new JoystickButton(driver, Button.kStickRight.value).whenPressed(new drivetrainShifter(m_driveSubsystem));
     new JoystickButton(driver, Button.kB.value).toggleWhenPressed(new GroundFeeder(m_ballfeeder));
     new JoystickButton(driver, Button.kA.value).whenHeld(new LimeDrive(m_driveSubsystem, m_limelight));
-    new JoystickButton(driver, Button.kY.value).whenPressed(new GroundFeederShifter(m_ballfeeder));
-    new JoystickButton(driver, Button.kStickRight.value).whenPressed(new LimelightToggle(m_limelight));
     new JoystickButton(driver, Button.kX.value)
       .whenPressed(()-> m_driveSubsystem.ebrake())
       .whenReleased(()-> m_driveSubsystem.no_ebrake());
@@ -90,9 +86,9 @@ public class RobotContainer {
     
     //About: set the operators buttons 
     new JoystickButton(operator, Button.kA.value).whileHeld(new FeedToWheel(m_conveyor));
-    new JoystickButton(operator, Button.kB.value).whenPressed(new ReverseIntake(m_feed));
+    new JoystickButton(operator, Button.kB.value).whileHeld(new ReverseIntake(m_feed));
     new JoystickButton(operator, Button.kBumperLeft.value).whenPressed(new shooterAlign(m_limelight, m_shooter));
-    new JoystickButton(operator, Button.kBumperRight.value).whenPressed(new FlyWheel(m_limelight, m_shooter));
+    new JoystickButton(operator, Button.kBumperRight.value).whileHeld(new FlyWheel(m_limelight, m_shooter));
     new JoystickButton(operator, Button.kX.value).whenPressed(new ResetingHoodAngle(m_shooter));
     new JoystickButton(operator, Button.kY.value)
       .whenPressed(()-> m_shooter.setPower(1))

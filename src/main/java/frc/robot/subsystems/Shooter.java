@@ -26,7 +26,7 @@ public class Shooter extends SubsystemBase {
   WPI_TalonFX Shooter_1 = new WPI_TalonFX(15);
   WPI_TalonFX Shooter_2 = new WPI_TalonFX(16);
 
-  WPI_TalonSRX hoodAdjuster = new WPI_TalonSRX(20);
+  WPI_TalonSRX hoodAdjuster = new WPI_TalonSRX(20); //20
 
   //About: instanciate the limit switch 
   private static DigitalInput hoodLimitSwitch = new DigitalInput(1);
@@ -321,7 +321,7 @@ public class Shooter extends SubsystemBase {
   //Name: Brennan 
   //About: Using percent output to set the power of the hoodmotor 
   public void setHoodPower(double power) {
-    hoodAdjuster.set(ControlMode.PercentOutput, 0);
+    hoodAdjuster.set(ControlMode.PercentOutput, power);
   }
 
   //Name: Brennan, Dante

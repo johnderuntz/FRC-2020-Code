@@ -32,7 +32,7 @@ public class ResetingHoodAngle extends CommandBase {
   //About: set the hood position back to zero
   @Override
   public void execute() {
-    m_shooter.resetHoodwithLimit();
+    m_shooter.changeHoodPosition(1);
     System.out.println("Hood is moving down");
 
     if(m_shooter.getHoodLimitSwitch()){

@@ -23,6 +23,7 @@ public class GroundFeederShifter extends CommandBase {
 
   @Override
   public void initialize() {
+    
   }
 
   //About: shift the feeder into the down position 

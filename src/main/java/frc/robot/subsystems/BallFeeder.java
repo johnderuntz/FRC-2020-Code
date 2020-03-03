@@ -65,7 +65,7 @@ public class BallFeeder extends SubsystemBase {
   //Name: Brennan 
   //About: will turn the feeder on 
   public void feederOn(){
-    feeder_1.set(1.0);
+    feeder_1.set(-1.0);
     return;
   }
 

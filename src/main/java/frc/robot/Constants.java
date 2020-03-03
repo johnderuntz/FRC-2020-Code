@@ -47,7 +47,7 @@ public final class Constants {
 
         //About: set the ticks and the RPM and Ticks conversions 
         public static final double veloTPR = 1023;
-        public static final double kTickstoRPM  = (600*1)/(1023*1.5);
+        public static final double kTickstoRPM  = (600*1)/(2048*1.5); //could be 1023
         public static final double kRPMtoTicks = (1023*1)/(600*1.5);
         public static final double flyGearRatio = (1/1.5);
 
