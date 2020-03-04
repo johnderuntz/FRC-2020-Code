@@ -18,9 +18,9 @@ import frc.robot.commands.DriveCommands.LimeDrive;
 import frc.robot.commands.DriveCommands.PlayerDrive;
 import frc.robot.commands.AutoCommands.SimpleAuto1;
 import frc.robot.commands.DriveCommands.drivetrainShifter;
+import frc.robot.commands.DriveCommands.DrivingWithGyro;
 import frc.robot.commands.shootercommand.FeedToWheel;
 import frc.robot.commands.shootercommand.ReverseIntake;
-import frc.robot.commands.shootercommand.shooterAlign;
 import frc.robot.commands.shootercommand.FlyWheel;
 import frc.robot.commands.shootercommand.ResetingHoodAngle;
 import frc.robot.commands.shootercommand.GroundFeeder;
@@ -73,35 +73,23 @@ public class RobotContainer {
     new JoystickButton(driver, Button.kStickRight.value).whenPressed(new drivetrainShifter(m_driveSubsystem));
     new JoystickButton(driver, Button.kB.value).toggleWhenPressed(new GroundFeeder(m_ballfeeder));
     new JoystickButton(driver, Button.kA.value).whenHeld(new LimeDrive(m_driveSubsystem, m_limelight));
+    new JoystickButton(driver, Button.kBumperRight.value).whileHeld(new FlyWheel(m_limelight, m_shooter));
+    new JoystickButton(driver, Button.kStickLeft.value).whileHeld(new DrivingWithGyro(15.0, 2.0, m_driveSubsystem));
     new JoystickButton(driver, Button.kX.value)
       .whenPressed(()-> m_driveSubsystem.ebrake())
       .whenReleased(()-> m_driveSubsystem.no_ebrake());
     new JoystickButton(driver, Button.kBumperLeft.value)
       .whenPressed(()-> m_driveSubsystem.setMaxOutput(.3))
       .whenReleased(()-> m_driveSubsystem.setMaxOutput(1));
-    
-    
-    //About: set the dpad driver buttons 
-
-    
+   
     //About: set the operators buttons 
     new JoystickButton(operator, Button.kA.value).whileHeld(new FeedToWheel(m_conveyor));
     new JoystickButton(operator, Button.kB.value).whileHeld(new ReverseIntake(m_feed));
-    new JoystickButton(operator, Button.kBumperLeft.value).whenPressed(new shooterAlign(m_limelight, m_shooter));
     new JoystickButton(operator, Button.kBumperRight.value).whileHeld(new FlyWheel(m_limelight, m_shooter));
     new JoystickButton(operator, Button.kX.value).whenPressed(new ResetingHoodAngle(m_shooter));
     new JoystickButton(operator, Button.kY.value)
       .whenPressed(()-> m_shooter.setPower(1))
       .whenReleased(()-> m_shooter.setPower(0));
-    new JoystickButton(operator, Button.kBack.value)
-      .whenPressed(()-> m_shooter.setHoodPower(-.6))
-      .whenReleased(()-> m_shooter.setHoodPower(0));
-    new JoystickButton(operator, Button.kStart.value)
-      .whenPressed(()-> m_shooter.setHoodPower(.8))
-      .whenReleased(()-> m_shooter.setHoodPower(0));  
-    
-      //About: set the dpad operator buttons 
-    
 
   }
 

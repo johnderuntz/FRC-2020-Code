@@ -79,12 +79,12 @@ public class Shooter extends SubsystemBase {
     Shooter_2.configAllowableClosedloopError(0, 10);
 
     //About: how to calculate kF https://phoenix-documentation.readthedocs.io/en/latest/ch16_ClosedLoop.html#calculating-velocity-feed-forward-gain-kf
-    Shooter_1.config_kF(0, m_limelight.getShooterVelocity()*Constants.ShooterConstants.kRPMtoTicks);
+    Shooter_1.config_kF(0, getShooterkF(m_limelight.getShooterVelocity()*Constants.ShooterConstants.kRPMtoTicks));
     Shooter_1.config_kP(0, 0.002);
     Shooter_1.config_kI(0, 0);
     Shooter_1.config_kD(0, 0);
 
-    Shooter_2.config_kF(0, m_limelight.getShooterVelocity()*Constants.ShooterConstants.kRPMtoTicks);
+    Shooter_2.config_kF(0, getShooterkF(m_limelight.getShooterVelocity()*Constants.ShooterConstants.kRPMtoTicks));
     Shooter_2.config_kP(0, 0.002);
     Shooter_2.config_kI(0, 0);
     Shooter_2.config_kD(0, 0);

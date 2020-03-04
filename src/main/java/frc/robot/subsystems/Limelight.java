@@ -94,7 +94,7 @@ public class Limelight extends SubsystemBase {
       setVelocity = 3299.00;
     }
     else if ((distanceToTarget() >= 9.5) &&( distanceToTarget() < 11.5)){
-      setVelocity = 3574.00;
+      setVelocity = 7900.00; //set to the maximum RPM cause of the optimal distance 
     }
     else if ((distanceToTarget() >= 11.5) &&( distanceToTarget() < 13.5)){
       setVelocity = 3872.00;
@@ -109,10 +109,10 @@ public class Limelight extends SubsystemBase {
       setVelocity = 4582.00;
     }
     else if ((distanceToTarget() >= 17.5) &&( distanceToTarget() < 20.0)){
-      setVelocity = 4949.00;
+      setVelocity = 5850.00; //known set velo 
     }
     else if ((distanceToTarget() >= 20.0) &&( distanceToTarget() < 20.5)){
-      setVelocity = 5075.00;
+      setVelocity = 6000.00;
     }
     else if ((distanceToTarget() >= 20.5) &&( distanceToTarget() < 21.0)){
       setVelocity = 5144.00;
@@ -136,7 +136,10 @@ public class Limelight extends SubsystemBase {
       setVelocity = 6049.00;
     }
     else if ((distanceToTarget() >= 26.0) &&( distanceToTarget() < 27.5)){
-      setVelocity = 6393.00;
+      setVelocity = 6550.00;
+    }
+    else if ((distanceToTarget() >= 27.5) && (distanceToTarget() < 40.0)){
+      setVelocity = 7350.00;
     }
     else{
       setVelocity = 0;

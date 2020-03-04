@@ -357,7 +357,7 @@ public class DriveSubsystem extends SubsystemBase {
     double speed = kP * error;
 
     rightDrivePrimary.set(ControlMode.PercentOutput, speed);
-    leftDrivePrimary  .set(ControlMode.PercentOutput, -speed);
+    leftDrivePrimary.set(ControlMode.PercentOutput, -speed);
   }
 
   @Override

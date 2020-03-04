@@ -9,7 +9,6 @@ package frc.robot.commands.shootercommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 
@@ -34,7 +33,7 @@ public class FlyWheel extends CommandBase {
   @Override
   public void execute() {
     //About: convert the velocity into encoder ticks and account for the gear ratio
-    double convertedVelocity = (m_limelight.getShooterVelocity() * Constants.ShooterConstants.flyGearRatio);
+    double convertedVelocity = m_limelight.getShooterVelocity();
 
     m_shooter.setShootSpeed(convertedVelocity);
   }
