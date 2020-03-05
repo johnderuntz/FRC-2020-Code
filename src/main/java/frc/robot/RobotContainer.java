@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -47,6 +48,7 @@ public class RobotContainer {
   //Instanciate the robot controllers 
   public static final XboxController driver = new XboxController(0);
   public static final XboxController operator = new XboxController(1);
+  public static final Joystick board = new Joystick(2);
 
 
   /**
@@ -91,9 +93,12 @@ public class RobotContainer {
       .whenPressed(()-> m_shooter.setPower(1))
       .whenReleased(()-> m_shooter.setPower(0));
 
+    //About: set the button board buttons 
+    new JoystickButton(board, 1).whenPressed(new drivetrainShifter(m_driveSubsystem));
   }
 
   public Command getAutonomousCommand() {
+    
     return new SimpleAuto1(m_driveSubsystem, m_limelight, m_shooter, m_feed);
   }
 }

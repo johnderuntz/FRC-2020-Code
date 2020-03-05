@@ -31,6 +31,7 @@ public class DrivingWithGyro extends CommandBase {
   //About: config the motors for proper drives 
   @Override
   public void initialize() {
+    System.out.println("The robo is aligning with the target");
     m_drive.configStandardDrive();
     m_drive.ebrake();
   }
@@ -59,6 +60,8 @@ public class DrivingWithGyro extends CommandBase {
       System.out.println("The gyro drive has timed out");
       return true;
     }
-    return false;
+    else{
+      return false;
+    }
   }
 }

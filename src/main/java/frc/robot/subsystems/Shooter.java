@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -28,6 +29,9 @@ public class Shooter extends SubsystemBase {
 
   WPI_TalonSRX hoodAdjuster = new WPI_TalonSRX(20); //20
 
+  //About: instanciate the hood adjusters 
+  private DoubleSolenoid hoodShifter = new DoubleSolenoid(3, 6);
+
   //About: instanciate the limit switch 
   private static DigitalInput hoodLimitSwitch = new DigitalInput(1);
 
@@ -36,6 +40,8 @@ public class Shooter extends SubsystemBase {
 
   //About: instaciate the subsystems 
   private Limelight m_limelight = new Limelight();
+
+  
 
   public Shooter() {
     //About: reset the motors to factory default 
@@ -298,6 +304,21 @@ public class Shooter extends SubsystemBase {
     Shooter_2.set(ControlMode.PercentOutput, power);
   }
 
+  //Name: Brennan 
+  //About: shift the hood into the correct position using penumatics 
+  public void shiftTheHood(){
+    switch (hoodShifter.get()){
+      case kOff:
+        hoodShifter.set(DoubleSolenoid.Value.kForward);
+       break;
+      case kForward:
+        hoodShifter.set(DoubleSolenoid.Value.kReverse);
+       break;
+      case kReverse:
+        hoodShifter.set(DoubleSolenoid.Value.kForward);
+       break;
+    }
+  }
   //Name: Brennan 
   //About: Reset the hood angle based on the limit switch 
   public void resetHoodwithLimit(){
